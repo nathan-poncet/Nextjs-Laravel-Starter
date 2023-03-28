@@ -1,0 +1,66 @@
+table evaluations {
+  id int(11) [pk]
+  note double(11)
+  opinions varchar(255)
+  rent_id int(11)
+}
+ref: evaluations.rent_id > rents.id
+
+table users {
+  id int(11) [pk]
+  firstname varchar(255)
+  lastname varchar(255)
+  birthdate datetime
+  email varchar(255)
+  password varchar(255)
+  roles array // ADMIN, CLIENT, SELLER
+}
+
+table rooms {
+  // TODO : Add images
+  id int(11) [pk]
+  user_id int(11)
+  title varchar(255)
+  description text
+  price_per_hour double(11)
+  surface double(11)
+  latitude double(11)
+  longitude double(11)
+  address varchar(255)
+  address_additional varchar(255)
+  postal_code varchar(255)
+}
+ref: rooms.user_id > users.id
+
+table room_have_options {
+  room_id int(11) [pk]
+  room_options_id int(11) [pk]
+}
+ref: room_have_options.room_id > rooms.id
+ref: room_have_options.room_options_id > room_options.id
+
+table room_options {
+  id int(11) [pk]
+  label string
+}
+
+table room_disponiblities {
+  id int(11) [pk]
+  room_id int(11)
+  start_at datetime
+  end_at datetime
+}
+ref: room_disponiblities.room_id > rooms.id
+
+table rents {
+  id int [pk]
+  client_id int(11)
+  room_id int(11)
+  start_at datetime
+  end_at datetime
+  taxe_price double(11)
+  htc_price double(11)
+}
+ref: rents.client_id > users.id
+ref: rents.room_id > rooms.id
+
