@@ -1,5 +1,3 @@
-cd ..
-
 cp .env.example .env
 cp server/.env.example server/.env
 
